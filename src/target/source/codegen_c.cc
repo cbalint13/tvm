@@ -648,6 +648,21 @@ void CodeGenC::VisitExpr_(const CallNode* op, std::ostream& os) {  // NOLINT(*)
       os << " != ";
       this->PrintExpr(op->args[0], os);
       os << ")";
+    } else if (op->op.as<OpNode>()->name == "tir.round") {
+      CHECK_EQ(op->args.size(), 1U);
+      os << "round(";
+      this->PrintExpr(op->args[0], os);
+      os << ")";
+    } else if (op->op.as<OpNode>()->name == "tir.floor") {
+      CHECK_EQ(op->args.size(), 1U);
+      os << "floor(";
+      this->PrintExpr(op->args[0], os);
+      os << ")";
+    } else if (op->op.as<OpNode>()->name == "tir.ceil") {
+      CHECK_EQ(op->args.size(), 1U);
+      os << "ceil(";
+      this->PrintExpr(op->args[0], os);
+      os << ")";
     } else {
       LOG(FATAL) << "Unresolved call " << op->op;
     }
